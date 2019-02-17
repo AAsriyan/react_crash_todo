@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
+import TodoFooter from './components/TodoFooter';
 import About from './components/pages/About';
 //import uuid from 'uuid';
 import axios from 'axios';
@@ -17,7 +18,8 @@ class App extends Component {
 
   componentDidMount() {
     axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-      .then(res => this.setState({ todos: res.data }))
+      .then(res => this.setState({ todos: res.data }));
+    //this.setState({ todos: [...this.state.todos.map(todo => todo.completed = false)] })
   }
   
   // Toggle Complete
@@ -67,6 +69,7 @@ class App extends Component {
                   markComplete={this.markComplete} 
                   delTodo={this.delTodo}
                 />
+                <TodoFooter todos={this.state.todos} />
               </React.Fragment>
             )} />
             <Route path="/about" component={About}/>
